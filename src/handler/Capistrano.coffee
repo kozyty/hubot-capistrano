@@ -2,18 +2,28 @@ spawn   = require('child_process').spawn
 carrier = require 'carrier'
 
 class Capistrano
-  execute: (project, command, msg) ->
-    cap = spawn 'cap', ['-f', "#{process.env.HUBOT_CAP_DIR}/#{project}/deploy.rb", command]
+  execute: (project, stage, command, msg) ->
+    path = process.env.HUBOT_CAP_DIR + project
+    process.chdir(path);
+
+    cap = spawn 'bundle', ['exec', 'cap', stage, command]
     @streamResult cap, msg
 
   streamResult: (cap, msg) ->
     capOut = carrier.carry cap.stdout
     capErr = carrier.carry cap.stderr
+    output = ''
 
     capOut.on 'line', (line) ->
-      msg.send line
+      output += line + "\n"
 
     capErr.on 'line', (line) ->
-      msg.send line
+      output += "*" + line + "*\n"
+
+    setInterval () ->
+      if output != ""
+        msg.send output.trim()
+        output = ""
+    , 10000
 
 module.exports = Capistrano

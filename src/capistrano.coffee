@@ -14,10 +14,11 @@ module.exports = (robot) ->
   robot.hear /list projects/i, (msg) ->
     msg.send "Project list: #{folder.getProjects().join(', ')}"
 
-  robot.hear /(cap|capistrano) ([a-z0-9]+) (.*)/i, (msg) ->
+  robot.hear /(cap|capistrano) ([a-z0-9]+) ([a-z0-9]+) (.*)/i, (msg) ->
     project  = msg.match[2]
-    command  = msg.match[3]
-    username = msg.message.user.room.split('@')[0]
+    stage = msg.match[3]
+    command  = msg.match[4]
+    username = msg.message.user.name
 
     if (!folder.projectExists project)
       return msg.send "This project doesn't exists."
@@ -27,5 +28,4 @@ module.exports = (robot) ->
       msg.send "Please talk with #{permission.getUsers(project)}" if permission.getUsers(project).length > 0
       return false
 
-    cap.execute project, command, msg
-
+    cap.execute project, stage, command, msg
