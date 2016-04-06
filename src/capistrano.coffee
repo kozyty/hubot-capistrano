@@ -15,6 +15,7 @@ module.exports = (robot) ->
     msg.send "Project list: #{folder.getProjects().join(', ')}"
 
   robot.hear /(cap|capistrano) ([a-z0-9]+) ([a-z0-9]+) (.*)/i, (msg) ->
+    robot.brain.set('oe', 'a')
     project  = msg.match[2]
     stage = msg.match[3]
     command  = msg.match[4]
