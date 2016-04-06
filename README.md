@@ -1,4 +1,4 @@
-hubot-capistrano
+ hubot-capistrano
 ================
 
 This is a module created to integrate capistrano with Hubot.
