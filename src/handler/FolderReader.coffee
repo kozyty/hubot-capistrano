@@ -15,7 +15,7 @@ class FolderReader
   readFolders: ->
     fs.readdir @path, (err, folders) =>
       throw new Error err if err
-      
+
       @folders = []
       @filterFolders folders
 
@@ -31,13 +31,7 @@ class FolderReader
     fs.exists path, (exists) ->
       callback exists
 
-  projectExists: (project) ->
-    project in @folders
-
   getPath: ->
     @path
-
-  getProjects: ->
-    @folders
 
 module.exports = FolderReader

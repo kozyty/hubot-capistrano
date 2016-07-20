@@ -2,9 +2,8 @@ spawn   = require('child_process').spawn
 carrier = require 'carrier'
 
 class Capistrano
-  execute: (project, stage, command, msg) ->
-    path = process.env.HUBOT_CAP_DIR + project
-    process.chdir(path);
+  execute: (stage, command, msg) ->
+    process.chdir(process.env.HUBOT_CAP_DIR);
 
     cap = spawn 'bundle', ['exec', 'cap', stage, command]
     @streamResult cap, msg
