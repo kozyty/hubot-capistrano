@@ -14,4 +14,4 @@ module.exports = (robot) ->
     stage = msg.match[2]
     command  = msg.match[3]
 
-    cap.execute stage, command, msg
+    cap.execute stage, command, msg, robot
