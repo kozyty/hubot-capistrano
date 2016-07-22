@@ -6,7 +6,7 @@ class Capistrano
     process.chdir(process.env.HUBOT_CAP_DIR);
 
     msg.send "Now #{stage} deploying..."
-    exec "bundle exec cap #{stage} #{command} | tail -n 100", (err, stdout, stderr) ->
+    exec "bundle exec cap #{stage} #{command} | tail -n 50", (err, stdout, stderr) ->
       if err
         unless robot.adapter instanceof slack.SlackBot
           msg.send "Error: deployed #{stage}"
