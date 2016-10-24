@@ -32,7 +32,6 @@ class Capistrano
         unless robot.adapter instanceof slack.SlackBot
           msg.send "Success: deployed #{stage}"
         else
-          robot.emit 'slack.attachment',
           attachments = [{
             color: "good"
             mrkdwn_in: ["text", "pretext", "fields"]
