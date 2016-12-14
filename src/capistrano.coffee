@@ -9,7 +9,7 @@ cap        = new Capistrano
 
 module.exports = (robot) ->
 
-  robot.hear /(cap|capistrano) ([a-z0-9]+) (.*)/i, (msg) ->
+  robot.respond /(cap|capistrano) ([a-z0-9]+) (.*)/i, (msg) ->
     robot.brain.set('oe', 'a')
     stage = msg.match[2]
     command  = msg.match[3]
